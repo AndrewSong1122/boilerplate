@@ -1,7 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
+import {Modal} from './Modal';
+import {useState} from 'react';
 
 function App() {
+  let [showModal, setShowModal] = useState(false);
+
   return (
     <div className="App">
       <header className="App-header">
@@ -17,6 +21,8 @@ function App() {
         >
           Learn React
         </a>
+        <button onClick={()=>{setShowModal(true)}}>Show Modal</button>
+        <Modal display={showModal} handleClose={()=>{setShowModal(false)}}/>
       </header>
     </div>
   );
