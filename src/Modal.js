@@ -6,7 +6,7 @@ const MODAL_STYLES = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     backgroundColor: '#FFF',
-    padding: '50px',
+    padding: '1%',
     zIndex: 1000
   }
   
@@ -20,25 +20,32 @@ const MODAL_STYLES = {
     zIndex: 1000
   }
 
-  
+  const CLOSE_BUTTON_STYLES = {
+    marginLeft: '80%',
+    float:'right'
+  }
 
-  let defaultModal = () => {
+  const CONTENT_STYLES = {
+    marginTop:'10%'
+  }
+
+  const defaultContent = () => {
     return(
-      <div>This is a modal!</div>
+      <div>This is a modal! Pass a component via props</div>
     );
   }
 
-export const Modal = ({child=defaultModal, display, handleClose}) => {
+export const Modal = ({child=defaultContent, display, handleClose, domNode='root'}) => {
     if(!display) return null;
 
     return ReactDOM.createPortal(
         <>
             <div style={OVERLAY_STYLES} />
             <div style={MODAL_STYLES}>
-            <button onClick={handleClose}>Close Modal</button>
-                {child()}
+            <button style={CLOSE_BUTTON_STYLES} onClick={handleClose}>X</button>
+                <div style={CONTENT_STYLES}>{child()}</div>
             </div>
         </>,
-        document.getElementById('root')
+        document.getElementById(domNode)
     );
 }
